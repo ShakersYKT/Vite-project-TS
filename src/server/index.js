@@ -1,11 +1,22 @@
 // const express = require('express');
 import express from "express";
 import cors from "cors";
+
 const app = express();
 const port = 5000;
 
 app.use(cors());
 app.use(express.json());
+
+// Массив для хранения данных
+let products = [];
+
+// Обработка POST-запросов
+app.post("/data", (req, res) => {
+  const newProduct = req.body;
+  products.push(newProduct); // Сохраняем данные в массив
+  res.status(201).json(newProduct); // Отправляем ответ с новыми данными
+});
 
 //Метод GET
 app.get("/api/data", (req, res) => {

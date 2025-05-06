@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Button from "./Button";
+import axios from "axios";
 
 interface Product {
   title: string;
@@ -21,10 +22,19 @@ export const AddingProduct: React.FC = () => {
     setNewProduct({ ...newProduct, [name]: value });
   };
 
-  const handleAddProduct = () => {
-    setProducts([...products, newProduct]);
-    setIsModalOpen(false);
-    setNewProduct({ title: "", description: "", price: "" });
+  const handleAddProduct = async () => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/data",
+        newProduct
+      );
+      
+      setProducts([...products, response.data]);
+      setIsModalOpen(false);
+      setNewProduct({ title: "", description: "", price: "" });
+    } catch (error) {
+      console.error("Ошибка при добавлении продукта:", error);
+    }
   };
 
   return (
