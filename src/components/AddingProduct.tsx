@@ -10,10 +10,10 @@ interface Product {
 export const AddingProduct: React.FC = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newProduct, setNewProduct] = useState<Product>({ 
-    title: "", 
-    description: "", 
-    price: "" 
+  const [newProduct, setNewProduct] = useState<Product>({
+    title: "",
+    description: "",
+    price: "",
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,21 +29,22 @@ export const AddingProduct: React.FC = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <Button 
-        size="medium" 
-        color="secondary" 
-        title="Добавить товар" 
+      <Button
+        size="medium"
+        color="secondary"
+        title="Добавить товар"
         onClick={() => setIsModalOpen(true)}
       />
 
       {isModalOpen && (
-        <div className="modal">
+        <div className="flex flex-col gap-4">
           <input
             type="text"
             name="title"
             placeholder="Название"
             value={newProduct.title}
             onChange={handleInputChange}
+            className="border border-black-300 rounded py-2 px-3 text-black"
           />
           <input
             type="text"
@@ -51,6 +52,7 @@ export const AddingProduct: React.FC = () => {
             placeholder="Описание"
             value={newProduct.description}
             onChange={handleInputChange}
+            className="border border-black-300 rounded py-2 px-3 text-black"
           />
           <input
             type="text"
@@ -58,15 +60,18 @@ export const AddingProduct: React.FC = () => {
             placeholder="Цена"
             value={newProduct.price}
             onChange={handleInputChange}
+            className="border border-black-300 rounded py-2 px-3 text-black"
           />
-          <Button size="medium" color="secondary" title="Добавить" onClick={handleAddProduct}/>
-          <Button size="medium" color="secondary" title="Закрыть" onClick={() => setIsModalOpen(false)}/>
+          <div className="flex gap-2">
+            <Button size="medium" color="secondary" title="Добавить" onClick={handleAddProduct} />
+            <Button size="medium" color="secondary" title="Закрыть" onClick={() => setIsModalOpen(false)} />
+          </div>
         </div>
       )}
 
       <div>
         {products.map((product, index) => (
-          <div key={index} className="product">
+          <div key={index} className="product rounded p-2">
             <h3>Название: {product.title}</h3>
             <p>Описание: {product.description}</p>
             <p>Цена: {product.price}</p>
